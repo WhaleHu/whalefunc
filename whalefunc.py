@@ -20,7 +20,7 @@ def solarcurve(clip):
     def curveB(x):
         a=round(127.9999*math.sin(A*(x+5)**3 + B*(x+5)**2 + C**(x+5)) + 127.5)
         return a
-    clip = core.std.Lut(clip=clip1, planes=[0], function=curveR)
+    clip = core.std.Lut(clip=clip, planes=[0], function=curveR)
     clip = core.std.Lut(clip=clip, planes=[1], function=curveG)
     clip = core.std.Lut(clip=clip, planes=[2], function=curveB)
     return clip
