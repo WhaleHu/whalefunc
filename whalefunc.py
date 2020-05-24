@@ -64,15 +64,23 @@ def FrameInfo(clip, title,
 
     clip = core.std.FrameEval(clip, partial(FrameProps, clip=clip))
     clip = core.sub.Subtitle(clip, text=['\n \n' + title], style=style)
-
     return clip
-def readbanding(clip,filepaht):
+def readbanding(clip,filepaht,delimiter=' '):
     import csv
     bandclip=FrameInfo(clip,'Band')
     with open(filepaht) as debandcsv:
-        csvzones = csv.reader(debandcsv, delimiter=' ')
+        csvzones = csv.reader(debandcsv, delimiter=delimiter)
         for row in csvzones:
             clip = ReplaceFrames(clip, bandclip, mappings="[" + row[0] + " " + row[1] + "]")
     return clip
+def readrpf(clip,fixlist,filepaht,delimiter=' '):
+    import csv
+    with open(filepaht) as debandcsv:
+        csvzones = csv.reader(debandcsv, delimiter=delimiter)
+        for row in csvzones:
+            fl=fixlist[int(row[2])-1]
+            clip = ReplaceFrames(clip, fl, mappings="[" + row[0] + " " + row[1] + "]")
+    return clip
+
 
 
